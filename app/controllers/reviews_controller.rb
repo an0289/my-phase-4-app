@@ -6,12 +6,19 @@ class ReviewsController < ApplicationController
 
     def show 
         review = find_review 
-        render json: review, serializer: UserWithReviewsSerializer 
+        # render json: review, serializer: UserWithReviewsSerializer 
+        render json: review 
     end 
 
     def create 
         review = @current_user.reviews.create!(review_params)
         render json: review, status: :created 
+    end
+    
+    def update
+        review = find_review
+        review.update 
+        render json: review 
     end 
 
     def destroy 
@@ -29,5 +36,5 @@ class ReviewsController < ApplicationController
     def find_review
         Review.find(params[:id])
     end 
-    
+
 end
